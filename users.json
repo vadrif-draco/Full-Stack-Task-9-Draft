@@ -1,0 +1,8 @@
+[
+  { "name": "Some other user", "age": 23, "id": 1 },
+  { "name": "Some other user", "age": 23, "id": 2 },
+  { "name": "Some user", "age": 23, "id": 3 },
+  { "name": "Some user", "age": 23, "id": 4 },
+  { "name": "Some user", "age": 23, "id": 5 },
+  { "name": "Some user", "age": 23, "id": 6 }
+]
