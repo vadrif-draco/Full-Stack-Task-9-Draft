@@ -7,7 +7,7 @@ function Greet(name) {
         throw new Error("No name provided!");
 
     let messages = [
-        `Welcome Mr. ${name}\n`,
+        `Welcome, Mr. ${name}\n`,
         `Good morning, Mr. ${name}\n`,
         `Good afternoon, Mr. ${name}\n`,
         `Good night, Mr. ${name}\n`,

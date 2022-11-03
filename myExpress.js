@@ -9,7 +9,7 @@ APP.use(express.json())
 console.log("Loading routes...")
 loadRoutes(APP)
 
-console.log(`Listen on port ${PORT}...`)
+console.log(`Listening on port ${PORT}...`)
 APP.listen(PORT);
 
 // TODO: Next task - replace heroku backend with our backend
