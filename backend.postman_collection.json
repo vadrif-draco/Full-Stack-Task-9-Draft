@@ -105,6 +105,32 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "ADMIN Get user by id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "dummydummy",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "localhost:3000/admin/users/4",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"admin",
+						"users",
+						"4"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
