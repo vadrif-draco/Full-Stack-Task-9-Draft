@@ -1,5 +1,5 @@
 const { Greet } = require('./myIndex')
-const { getUsers, addUser, getUserByID, deleteUserByID } = require('./myDBFunctions')
+const { getUsersArr, addUser, getUserByID, deleteUserByID } = require('./myDBFunctions')
 
 const ERRORTEXTHTML = `
 <div style="color: red; font-family: Calibri, Arial, Helvetica, sans-serif;">
@@ -14,34 +14,31 @@ const SUCCESSTEXTHTML = `
 `
 
 function indexController(req, res) {
-    res.send(Greet('Guest'));
+    res.status(200).json({ message: Greet('Guest') });
 }
 
-function getUsersController(req, res) {
-    getUsers().then(
-        (value) => res.json(JSON.parse(value || "[]")),
-        (error) => res.status(400).send(`${ERRORTEXTHTML} ${error}`)
-    )
+async function getUsersController(req, res) {
+    res.status(200).json({ users: await getUsersArr() })
 }
 
 function addUserController(req, res) {
     addUser(req.body).then(
-        (value) => res.send(`${SUCCESSTEXTHTML} User added successfully with ID ${value}`),
-        (error) => res.status(400).send(`${ERRORTEXTHTML} ${error}`)
+        (value) => res.status(201).json({ message: `${SUCCESSTEXTHTML} User added successfully with ID ${value}`, id: value }),
+        (error) => res.status(400).json({ message: `${ERRORTEXTHTML} ${error}` })
     )
 }
 
 function getUserByIDController(req, res) {
     getUserByID(req.params['id']).then(
-        (value) => res.json(JSON.parse(value)),
-        (error) => res.status(400).send(`${ERRORTEXTHTML} ${error}`)
+        (value) => res.status(200).json({ user: JSON.parse(value) }),
+        (error) => res.status(404).json({ message: `${ERRORTEXTHTML} ${error}` })
     )
 }
 
 function deleteUserByIDController(req, res) {
     deleteUserByID(req.params['id']).then(
-        (value) => res.send(`${SUCCESSTEXTHTML} User with ID ${value} deleted successfully`),
-        (error) => res.status(400).send(`${ERRORTEXTHTML} ${error}`)
+        (value) => res.status(200).json({ message: `${SUCCESSTEXTHTML} User with ID ${value} deleted successfully` }),
+        (error) => res.status(404).json({ message: `${ERRORTEXTHTML} ${error}` })
     )
 }
 

@@ -1,64 +1,62 @@
 const { read, write } = require("./myStorage");
 
-function getUsers() {
+async function getUsers() {
     return read("users.json")
 }
 
-function addUser(newUser) {
-    return new Promise((resolve, reject) => {
-
-        if (newUser) {
-            getUsers().then((users) => {
-                users = JSON.parse(users || "[]")
-                newUser.id = 1 + Math.max(0, ...users.map((user) => { return user.id }));
-                users.push(newUser)
-                write("users.json", JSON.stringify(users))
-                // No better way to append to JSON file instead of re-writing every time?
-
-                resolve(newUser.id)
-            })
-        }
-        else {
-            reject(`Invalid user data provided`)
-        }
-
-    })
+async function getUsersArr() {
+    return JSON.parse(await getUsers() || "[]")
 }
 
-function getUserByID(ID) {
-    return new Promise((resolve, reject) => {
-
-        getUsers().then((users) => {
-            users = JSON.parse(users || "[]")
-            let user = users.find((user) => { return user.id == ID })
-            if (user) {
-                resolve(JSON.stringify(user))
-            }
-            else {
-                reject(`User with ID ${ID} was not found`)
-            }
-        })
-
-    })
+async function saveUsersArr(usersArr) {
+    await write("users.json", JSON.stringify(usersArr))
 }
 
-function deleteUserByID(ID) {
-    return new Promise((resolve, reject) => {
+async function addUser(newUser) {
 
-        getUsers().then((users) => {
-            users = JSON.parse(users || "[]")
-            let index = users.findIndex((user) => { return user.id == ID })
-            if (index != -1) {
-                // Remove user by id
-                users.splice(index, 1)
-                write("users.json", JSON.stringify(users))
-                resolve(ID)
-            } else {
-                reject(`No user with an ID ${ID} exists`)
-            }
-        })
+    if (newUser) {
+        usersArr = await getUsersArr()
+        newUser.id = 1 + Math.max(0, ...usersArr.map((user) => { return user.id }));
+        usersArr.push(newUser)
+        await saveUsersArr(usersArr)
+        // No better way to append to JSON file instead of re-writing every time?
 
-    })
+        return newUser.id
+    }
+    else {
+        throw `Couldn't add user; invalid user data provided`
+    }
+
 }
 
-module.exports = { getUsers, addUser, getUserByID, deleteUserByID }
+async function getUserByID(ID) {
+
+    usersArr = await getUsersArr()
+    let user = usersArr.find((user) => { return user.id == ID })
+    if (user) {
+        return JSON.stringify(user)
+    }
+    else {
+        throw `Couldn't get user with ID ${ID}; user not found`
+    }
+
+}
+
+async function deleteUserByID(ID) {
+
+    usersArr = await getUsersArr()
+    let index = usersArr.findIndex((user) => { return user.id == ID })
+    if (index != -1) {
+        // Remove user by id
+        usersArr.splice(index, 1)
+        await saveUsersArr(usersArr)
+        // No better way to delete item from JSON file instead of re-writing every time?
+
+        return ID
+    } else {
+        throw `Couldn't delete user with ID ${ID}; user not found`
+    }
+
+}
+
+module.exports = { getUsers, getUsersArr, saveUsersArr, addUser, getUserByID, deleteUserByID }
