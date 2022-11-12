@@ -24,17 +24,24 @@
 			"response": []
 		},
 		{
-			"name": "Get all users",
+			"name": "HRDEPT Get all users",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNjY4MTg5MDQ5fQ.edEIc_Ia5mALloh8bkFJh36bIcGuIlcGD8KbLCVSI00",
+						"type": "default"
+					}
+				],
 				"url": {
-					"raw": "localhost:3000/users",
+					"raw": "localhost:3000/hr/users",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
+						"hr",
 						"users"
 					]
 				}
@@ -42,13 +49,33 @@
 			"response": []
 		},
 		{
-			"name": "Add user",
+			"name": "HRDEPT Get user by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/hr/users/636f806dbf8d7ec9a228f60c",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"hr",
+						"users",
+						"636f806dbf8d7ec9a228f60c"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NON-ADMIN Log in",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Some more user\",\r\n    \"age\": 23\r\n}",
+					"raw": "{\r\n    \"username\": \"some non-admin user\",\r\n    \"password\": \"pppppp\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -56,51 +83,101 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:3000/users",
+					"raw": "http://localhost:3000/admin/auth/login",
+					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
-						"users"
+						"admin",
+						"auth",
+						"login"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Get user by id",
+			"name": "ADMIN Sign up",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"some admin user\",\r\n    \"password\": \"pppppp\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/admin/auth/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"admin",
+						"auth",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ADMIN Log in",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"some admin user\",\r\n    \"password\": \"pppppp\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/admin/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"admin",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ADMIN Get all users",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{AUTH_TOKEN}}",
+						"type": "default"
+					}
+				],
 				"url": {
-					"raw": "localhost:3000/users/9",
+					"raw": "localhost:3000/admin/users",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
-						"users",
-						"9"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Delete user by id",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "localhost:3000/users/9",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"users",
-						"9"
+						"admin",
+						"users"
 					]
 				}
 			},
@@ -112,13 +189,13 @@
 				"method": "GET",
 				"header": [
 					{
-						"key": "token",
-						"value": "dummydummy",
+						"key": "Authorization",
+						"value": "{{AUTH_TOKEN}}",
 						"type": "default"
 					}
 				],
 				"url": {
-					"raw": "localhost:3000/admin/users/4",
+					"raw": "localhost:3000/admin/users/636f8a984e25205230b5a4b7",
 					"host": [
 						"localhost"
 					],
@@ -126,11 +203,63 @@
 					"path": [
 						"admin",
 						"users",
-						"4"
+						"636f8a984e25205230b5a4b7"
 					]
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "ADMIN Delete user by id",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{AUTH_TOKEN}}",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "localhost:3000/admin/users/636f808abf8d7ec9a228f60d",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"admin",
+						"users",
+						"636f808abf8d7ec9a228f60d"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "AUTH_TOKEN",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0FkbWluIjp0cnVlLCJpYXQiOjE2NjgyNTI0NjB9.UPJRpHS7KuNV9eL68wqAchOYulF0uIxndgA3lxoAk50"
 		}
 	]
 }

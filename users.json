@@ -1,1 +1,14 @@
-[{"name":"Some other user","age":23,"id":1},{"name":"Some other user","age":23,"id":2},{"name":"Some user","age":23,"id":3},{"name":"Some user","age":23,"id":4},{"name":"Some sssss user","age":23,"id":7},{"name":"Some sssss user","age":23,"id":8},{"name":"Some more user","age":23,"id":10},{"name":"Some more user","age":23,"id":11},{"name":"Some more user","age":23,"id":12},{"name":"Some more user","age":23,"id":13}]
+[
+  {
+    "name": "some admin user",
+    "password_hash": "$2b$10$di2pN50d7hhMxqybT1QtkOiWH1r.KM68UMTNVtuEWC.Bwabsp.fhm",
+    "isAdmin": true,
+    "id": 1
+  },
+  {
+    "name": "some non-admin user",
+    "password_hash": "$2b$10$Xs5hJjcxQdThPqZM4yVKgeG5kkCq3Vp1fBJDshttqeBz9VCHt3RFK",
+    "isAdmin": false,
+    "id": 2
+  }
+]
