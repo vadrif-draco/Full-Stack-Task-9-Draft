@@ -1,17 +1,11 @@
-const {
-    indexController,
-    getUsersController,
-    addUserController,
-    getUserByIDController,
-    deleteUserByIDController,
-    loginController,
-    signUpController,
-} = require("./3_myControllers")
+const { indexController } = require("./3_Controllers/indexControllers")
+const { loginController, signUpController } = require("./3_Controllers/authControllers")
+const { getUsersController, addUserController, getUserByIDController, deleteUserByIDController } = require("./3_Controllers/usersControllers")
+const { getProductsController, addProductController, getProductByIDController, getProductsByCategoryIDController, updateProductByIDController, deleteProductByIDController } = require("./3_Controllers/productsControllers")
+const { getCategoriesController, addCategoryController, getCategoryByIDController, updateCategoryByIDController, deleteCategoryByIDController, changeCategoryStatusByIDController } = require("./3_Controllers/categoriesControllers")
 
-const {
-    userViewsLimitGuard,
-    adminAuthGuard
-} = require('./3_myMiddlewares')
+const { adminAuthGuard } = require("./3_Middlewares/adminAuthGuard")
+const { userViewsLimitGuard } = require("./3_Middlewares/userViewsLimitGuard")
 
 function loadRootRoutes(root) {
 
@@ -43,13 +37,38 @@ function loadAdminRoutes(admin, admin_auth) {
     admin.get("/users/:id", getUserByIDController)
     admin.delete("/users/:id", deleteUserByIDController)
 
+    // There are also products which we want to CRUD
+    admin.get("/products/", getProductsController)
+    admin.post("/products/", addProductController)
+    admin.get("/products/:id", getProductByIDController)
+    admin.put("/products/:id", updateProductByIDController)
+    admin.delete("/products/:id", deleteProductByIDController)
+    admin.get("/products/category/:id", getProductsByCategoryIDController)
+
+    // There are also categories which we want to CRUD
+    admin.get("/categories/", getCategoriesController)
+    admin.post("/categories/", addCategoryController)
+    admin.get("/categories/:id", getCategoryByIDController)
+    admin.put("/categories/:id", updateCategoryByIDController)
+    admin.delete("/categories/:id", deleteCategoryByIDController)
+    admin.put("/categories/:id/change-status", changeCategoryStatusByIDController)
+
 }
 
 function loadHRDeptRoutes(hrdept) {
 
     // The HR department can only GET all users, or a specific user by ID
-    hrdept.get("/users/", getUsersController)
+    hrdept.get("/users/", userViewsLimitGuard, getUsersController)
     hrdept.get("/users/:id", userViewsLimitGuard, getUserByIDController)
+
+    // Likewise for products
+    hrdept.get("/products/", getProductsController)
+    hrdept.get("/products/:id", getProductByIDController)
+    hrdept.get("/products/category/:id", getProductsByCategoryIDController)
+
+    // Likewise for categories
+    hrdept.get("/categories/", getCategoriesController)
+    hrdept.get("/categories/:id", getCategoryByIDController)
 
 }
 

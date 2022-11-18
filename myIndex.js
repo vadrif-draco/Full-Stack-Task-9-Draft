@@ -1,4 +1,4 @@
-const { read, write } = require("./6_myFS");
+const { read, write } = require("./6_Storage/myFS");
 // console.log(`\nprocess.argv: ${process.argv}\n`);
 
 function Greet(name) {

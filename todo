@@ -1,0 +1,8 @@
+Session pseudo-tasks:
+Implement updateUserByIDController and add to Postman collection
+Perform integrity check in addProductController
+Perform uniqueness check in addProductController
+Perform uniqueness check in addCategoryController
+
+Final task (course project):
+Implement similar concepts with TypeScript for the main project's back-end and integrate it with its Angular front-end

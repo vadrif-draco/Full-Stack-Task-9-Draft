@@ -6,230 +6,697 @@
 	},
 	"item": [
 		{
+			"name": "ADMIN",
+			"item": [
+				{
+					"name": "Auth",
+					"item": [
+						{
+							"name": "Sign up",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"yet another admin user\",\r\n    \"password\": \"yet another password\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_API_URL}}/admin/auth/signup",
+									"host": [
+										"{{BASE_API_URL}}"
+									],
+									"path": [
+										"admin",
+										"auth",
+										"signup"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Log in",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"yet another admin user\",\r\n    \"password\": \"yet another password\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_API_URL}}/admin/auth/login",
+									"host": [
+										"{{BASE_API_URL}}"
+									],
+									"path": [
+										"admin",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Users",
+					"item": [
+						{
+							"name": "Get all users",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{AUTH_TOKEN}}",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{BASE_API_URL}}/admin/users",
+									"host": [
+										"{{BASE_API_URL}}"
+									],
+									"path": [
+										"admin",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add non-admin user",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{AUTH_TOKEN}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"some other non-admin user but admin\",\r\n    \"isAdmin\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_API_URL}}/admin/users",
+									"host": [
+										"{{BASE_API_URL}}"
+									],
+									"path": [
+										"admin",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get user by id",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{AUTH_TOKEN}}",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{BASE_API_URL}}/admin/users/6377c3067582dcfee7cc5323",
+									"host": [
+										"{{BASE_API_URL}}"
+									],
+									"path": [
+										"admin",
+										"users",
+										"6377c3067582dcfee7cc5323"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete user by id",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{AUTH_TOKEN}}",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{BASE_API_URL}}/admin/users/6377c0ba9a64fce77fbceab8",
+									"host": [
+										"{{BASE_API_URL}}"
+									],
+									"path": [
+										"admin",
+										"users",
+										"6377c0ba9a64fce77fbceab8"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Products",
+					"item": [
+						{
+							"name": "Get all products",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{AUTH_TOKEN}}",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{BASE_API_URL}}/admin/products/",
+									"host": [
+										"{{BASE_API_URL}}"
+									],
+									"path": [
+										"admin",
+										"products",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add product",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{AUTH_TOKEN}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Product 23\",\r\n    \"description\": \"2222233333\",\r\n    \"count\": 214,\r\n    \"category\": {\r\n        \"type\": \"old\",\r\n        \"id\": \"6377c3517582dcfee7cc5324\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_API_URL}}/admin/products",
+									"host": [
+										"{{BASE_API_URL}}"
+									],
+									"path": [
+										"admin",
+										"products"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get product by id",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{AUTH_TOKEN}}",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{BASE_API_URL}}/admin/products/6377765c33e82872989339e5",
+									"host": [
+										"{{BASE_API_URL}}"
+									],
+									"path": [
+										"admin",
+										"products",
+										"6377765c33e82872989339e5"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get products by category",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{AUTH_TOKEN}}",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{BASE_API_URL}}/admin/products/category/6377c3517582dcfee7cc5324",
+									"host": [
+										"{{BASE_API_URL}}"
+									],
+									"path": [
+										"admin",
+										"products",
+										"category",
+										"6377c3517582dcfee7cc5324"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update product by id",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{AUTH_TOKEN}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"updateSet\": {\r\n        \"count\": 444\r\n    },\r\n    \"removeSet\": {\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_API_URL}}/admin/products/6377c3517582dcfee7cc5325",
+									"host": [
+										"{{BASE_API_URL}}"
+									],
+									"path": [
+										"admin",
+										"products",
+										"6377c3517582dcfee7cc5325"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete product by id",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{AUTH_TOKEN}}",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{BASE_API_URL}}/admin/products/6377765c33e82872989339e5",
+									"host": [
+										"{{BASE_API_URL}}"
+									],
+									"path": [
+										"admin",
+										"products",
+										"6377765c33e82872989339e5"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Categories",
+					"item": [
+						{
+							"name": "Get all categories",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{AUTH_TOKEN}}",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{BASE_API_URL}}/admin/categories/",
+									"host": [
+										"{{BASE_API_URL}}"
+									],
+									"path": [
+										"admin",
+										"categories",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add category",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{AUTH_TOKEN}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Category 6\",\r\n    \"description\": \"Category 666666\",\r\n    \"status\": \"inactive\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_API_URL}}/admin/categories",
+									"host": [
+										"{{BASE_API_URL}}"
+									],
+									"path": [
+										"admin",
+										"categories"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get category by id",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{AUTH_TOKEN}}",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{BASE_API_URL}}/admin/categories/6377c3fd7582dcfee7cc5327",
+									"host": [
+										"{{BASE_API_URL}}"
+									],
+									"path": [
+										"admin",
+										"categories",
+										"6377c3fd7582dcfee7cc5327"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update category by id",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{AUTH_TOKEN}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"updateSet\": {\r\n        \"status\": \"active\"\r\n    },\r\n    \"removeSet\": {\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_API_URL}}/admin/categories/6377c3fd7582dcfee7cc5327",
+									"host": [
+										"{{BASE_API_URL}}"
+									],
+									"path": [
+										"admin",
+										"categories",
+										"6377c3fd7582dcfee7cc5327"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete category by id",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{AUTH_TOKEN}}",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{BASE_API_URL}}/admin/categories/6377c4027582dcfee7cc5328",
+									"host": [
+										"{{BASE_API_URL}}"
+									],
+									"path": [
+										"admin",
+										"categories",
+										"6377c4027582dcfee7cc5328"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Change category status",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{AUTH_TOKEN}}",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{BASE_API_URL}}/admin/categories/6377c3fd7582dcfee7cc5327/change-status",
+									"host": [
+										"{{BASE_API_URL}}"
+									],
+									"path": [
+										"admin",
+										"categories",
+										"6377c3fd7582dcfee7cc5327",
+										"change-status"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "HRDEPT",
+			"item": [
+				{
+					"name": "Users",
+					"item": [
+						{
+							"name": "Get all users",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNjY4MTg5MDQ5fQ.edEIc_Ia5mALloh8bkFJh36bIcGuIlcGD8KbLCVSI00",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{BASE_API_URL}}/hr/users",
+									"host": [
+										"{{BASE_API_URL}}"
+									],
+									"path": [
+										"hr",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get user by id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_API_URL}}/hr/users/63773f822ae26bf25276d9de",
+									"host": [
+										"{{BASE_API_URL}}"
+									],
+									"path": [
+										"hr",
+										"users",
+										"63773f822ae26bf25276d9de"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Products",
+					"item": [
+						{
+							"name": "Get all products",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_API_URL}}/hr/products/",
+									"host": [
+										"{{BASE_API_URL}}"
+									],
+									"path": [
+										"hr",
+										"products",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get product by id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_API_URL}}/hr/products/63766b2fa9732d631bbcfc18",
+									"host": [
+										"{{BASE_API_URL}}"
+									],
+									"path": [
+										"hr",
+										"products",
+										"63766b2fa9732d631bbcfc18"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get products by category",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_API_URL}}/hr/products/category/63766105bc4237a2e84e27ba",
+									"host": [
+										"{{BASE_API_URL}}"
+									],
+									"path": [
+										"hr",
+										"products",
+										"category",
+										"63766105bc4237a2e84e27ba"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Categories",
+					"item": [
+						{
+							"name": "Get all categories",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_API_URL}}/hr/categories/",
+									"host": [
+										"{{BASE_API_URL}}"
+									],
+									"path": [
+										"hr",
+										"categories",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get category by id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_API_URL}}/hr/categories/63767a1a5718bdff10b65e47",
+									"host": [
+										"{{BASE_API_URL}}"
+									],
+									"path": [
+										"hr",
+										"categories",
+										"63767a1a5718bdff10b65e47"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
 			"name": "Get /",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:3000/",
+					"raw": "{{BASE_API_URL}}",
 					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "HRDEPT Get all users",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNjY4MTg5MDQ5fQ.edEIc_Ia5mALloh8bkFJh36bIcGuIlcGD8KbLCVSI00",
-						"type": "default"
-					}
-				],
-				"url": {
-					"raw": "localhost:3000/hr/users",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"hr",
-						"users"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "HRDEPT Get user by id",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:3000/hr/users/636f806dbf8d7ec9a228f60c",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"hr",
-						"users",
-						"636f806dbf8d7ec9a228f60c"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "NON-ADMIN Log in",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"username\": \"some non-admin user\",\r\n    \"password\": \"pppppp\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:3000/admin/auth/login",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"admin",
-						"auth",
-						"login"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "ADMIN Sign up",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"username\": \"some admin user\",\r\n    \"password\": \"pppppp\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:3000/admin/auth/signup",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"admin",
-						"auth",
-						"signup"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "ADMIN Log in",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"username\": \"some admin user\",\r\n    \"password\": \"pppppp\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:3000/admin/auth/login",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"admin",
-						"auth",
-						"login"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "ADMIN Get all users",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "{{AUTH_TOKEN}}",
-						"type": "default"
-					}
-				],
-				"url": {
-					"raw": "localhost:3000/admin/users",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"admin",
-						"users"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "ADMIN Get user by id",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "{{AUTH_TOKEN}}",
-						"type": "default"
-					}
-				],
-				"url": {
-					"raw": "localhost:3000/admin/users/636f8a984e25205230b5a4b7",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"admin",
-						"users",
-						"636f8a984e25205230b5a4b7"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "ADMIN Delete user by id",
-			"request": {
-				"method": "DELETE",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "{{AUTH_TOKEN}}",
-						"type": "default"
-					}
-				],
-				"url": {
-					"raw": "localhost:3000/admin/users/636f808abf8d7ec9a228f60d",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"admin",
-						"users",
-						"636f808abf8d7ec9a228f60d"
+						"{{BASE_API_URL}}"
 					]
 				}
 			},
@@ -260,6 +727,10 @@
 		{
 			"key": "AUTH_TOKEN",
 			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0FkbWluIjp0cnVlLCJpYXQiOjE2NjgyNTI0NjB9.UPJRpHS7KuNV9eL68wqAchOYulF0uIxndgA3lxoAk50"
+		},
+		{
+			"key": "BASE_API_URL",
+			"value": "http://localhost:3000"
 		}
 	]
 }

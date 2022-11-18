@@ -1,11 +1,25 @@
-// const { read, write } = require("./6_myFS");
-const {
-    createNewCollection,
-    insertInCollection,
-    findInCollection,
-    removeFromCollection,
-    convertToObjectId
-} = require("./6_myMongo")
+
+
+
+
+
+
+
+
+// ------------------------------------------------------
+// I left this code here just for reference, it is unused
+// ------------------------------------------------------
+
+
+
+
+
+
+
+
+
+// const { read, write } = require("../6_Storage/myFS");
+const { createNewCollection, insertInCollection, findInCollection, removeFromCollection, convertToObjectId } = require("../6_Storage/myMongo")
 
 const coll = "myUsers"
 createNewCollection(coll)
@@ -14,9 +28,11 @@ createNewCollection(coll)
 //     return read("users.json")
 // }
 
-async function getUsersArr(query = {}) {
+async function getUsersArr(query = {}, options = {}) {
+    
     // return JSON.parse(await getUsers() || "[]")
-    return await findInCollection(coll, query)
+    return await findInCollection(coll, query, options)
+
 }
 
 // async function saveUsersArr(usersArr) {
@@ -57,8 +73,8 @@ async function getUserByID(ID) {
 async function getUserByUsername(USERNAME) {
 
     // usersArr = await getUsersArr()
-    // let user = usersArr.find((user) => { return user.name == USERNAME })
-    let user = await findInCollection(coll, { name: USERNAME })
+    // let user = usersArr.find((user) => { return user.username == USERNAME })
+    let user = await findInCollection(coll, { username: USERNAME })
     // if (user) {
     if (user.length != 0) {
         return user[0]
@@ -85,5 +101,3 @@ async function deleteUserByID(ID) {
     }
 
 }
-
-module.exports = { getUsersArr, addUser, getUserByID, getUserByUsername, deleteUserByID }

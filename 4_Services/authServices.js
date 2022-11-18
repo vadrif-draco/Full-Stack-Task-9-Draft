@@ -1,10 +1,13 @@
-const { getUserByUsername, addUser } = require("./5_myDBFunctions")
+// Model used
+const { userModel } = require("../5_Models/userModel")
+
+// Encryption/decryption and JWT access token libraries
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 
 async function createNewUser(username, password_hash) {
 
-    return addUser({ name: username, password_hash: password_hash, isAdmin: true })
+    return userModel.addItem({ username, password_hash, isAdmin: true })
 
 }
 
@@ -18,7 +21,7 @@ function hashPassword(password) {
 async function registerNewUser(username, password) {
 
     // It will throw internally if user is not found, so we put the user creation code in the catch
-    try { await getUserByUsername(username) }
+    try { await userModel.getUserByUsername(username) }
     catch (_) { return createNewUser(username, hashPassword(password)) }
 
     // Otherwise, throw
@@ -30,7 +33,7 @@ async function loginUser(username, password) {
 
     try {
 
-        user = await getUserByUsername(username)
+        user = await userModel.getUserByUsername(username)
 
         // Validate credentials
         if (bcrypt.compareSync(password, user.password_hash)) {
@@ -55,8 +58,4 @@ function extractTokenDetails(token) {
 
 }
 
-module.exports = {
-    registerNewUser,
-    loginUser,
-    extractTokenDetails
-}
+module.exports = { registerNewUser, loginUser, extractTokenDetails }

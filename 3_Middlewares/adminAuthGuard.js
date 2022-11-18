@@ -1,30 +1,5 @@
-const { extractTokenDetails } = require("./4_myServices")
-const { getUserByID } = require("./5_myDBFunctions")
-
-const VIEW_COUNT_LIMIT = 3
-
-userViewCountMap = {}
-
-function userViewsLimitGuard(req, res, next) {
-
-    id = req.params['id']
-    if (id in userViewCountMap) {
-
-        if (userViewCountMap[id] >= VIEW_COUNT_LIMIT) {
-
-            return res.status(403).json({ message: `View count limit reached for user with ID ${id}` })
-
-        }
-        else { userViewCountMap[id]++ }
-
-    } else {
-
-        userViewCountMap[id] = 1
-
-    }
-    next()
-
-}
+const { extractTokenDetails } = require("../4_Services/authServices")
+const { userModel } = require("../5_Models/userModel")
 
 function adminAuthGuard(req, res, next) {
 
@@ -38,7 +13,7 @@ function adminAuthGuard(req, res, next) {
     if (details == -1) {
         return res.status(404).json({ message: `Invalid authorization token provided` })
     }
-    getUserByID(details._id).then(
+    userModel.getItemByID(details._id).then(
         (value) => {
 
             if (details.isAdmin == false) {
@@ -52,4 +27,4 @@ function adminAuthGuard(req, res, next) {
 
 }
 
-module.exports = { userViewsLimitGuard, adminAuthGuard }
+module.exports = { adminAuthGuard }

@@ -82,18 +82,66 @@ async function insertInCollection(collectionName, item) {
 
 }
 
-async function findInCollection(collectionName, query) {
+async function findInCollection(collectionName, query, options = {}) {
 
     return new Promise(async (resolve, reject) => {
 
         try {
 
             instance = await _connect()
-            instance.dbObj.collection(collectionName).find(query).toArray((err, result) => {
+            instance.dbObj.collection(collectionName).find(query, { projection: options }).toArray((err, result) => {
 
                 if (err) { console.log(`Error querying collection "${collectionName}": ${err}`) }
                 else { console.log(`Query into collection "${collectionName}" succeeded`) }
                 resolve(result)
+
+            })
+
+        } catch (err) { console.log(err) }
+
+    })
+
+}
+
+async function updateInCollection(collectionName, query = {}, updateSet, removeSet = {}, options = {}) {
+
+    return new Promise(async (resolve, reject) => {
+
+        try {
+
+            instance = await _connect()
+            instance.dbObj.collection(collectionName).updateOne(query, { $set: updateSet, $unset: removeSet }, { projection: options }, (err, result) => {
+
+                if (err) { console.log(`Error updating item in collection "${collectionName}": ${err}`) }
+                else if (result.matchedCount == 0) { console.log(`Item not found in "${collectionName}"`) }
+                else { console.log(`Item updated in collection "${collectionName}" successfully`) }
+                resolve(result.matchedCount)
+
+            })
+
+        } catch (err) { console.log(err) }
+
+    })
+
+}
+
+async function findFieldInItemByFieldName(collectionName, query = {}, fieldName) {
+
+    lookupSet = {}
+    lookupSet[fieldName] = 1 // Only include the field we're look up
+    lookupSet["_id"] = 0 // Have to manually exclude _id because it is always returned by default
+
+    return new Promise(async (resolve, reject) => {
+
+        try {
+
+            instance = await _connect()
+            instance.dbObj.collection(collectionName).findOne(query, { projection: lookupSet }, (err, result) => {
+
+                if (err) { console.log(`Error finding field/item from collection "${collectionName}": ${err}`) }
+                else if (result.matchedCount == 0) { console.log(`Field/item not found in "${collectionName}"`) }
+                else { console.log(`Item field retrieved from collection "${collectionName}" successfully`) }
+                resolve(result[fieldName])
 
             })
 
@@ -127,4 +175,6 @@ async function removeFromCollection(collectionName, query = {}) {
 
 function convertToObjectId(ID) { return mongo.ObjectId(ID) }
 
-module.exports = { createNewCollection, insertInCollection, findInCollection, removeFromCollection, convertToObjectId }
+function convertFromObjectId(ObjectId) { return ObjectId.toString() }
+
+module.exports = { createNewCollection, insertInCollection, findInCollection, updateInCollection, findFieldInItemByFieldName, removeFromCollection, convertToObjectId, convertFromObjectId }
