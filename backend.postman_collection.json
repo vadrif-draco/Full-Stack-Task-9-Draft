@@ -539,13 +539,7 @@
 							"name": "Get all users",
 							"request": {
 								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNjY4MTg5MDQ5fQ.edEIc_Ia5mALloh8bkFJh36bIcGuIlcGD8KbLCVSI00",
-										"type": "default"
-									}
-								],
+								"header": [],
 								"url": {
 									"raw": "{{BASE_API_URL}}/hr/users",
 									"host": [
